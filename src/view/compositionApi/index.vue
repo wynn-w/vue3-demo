@@ -21,7 +21,7 @@ export default {
       return num++
     }
     return {
-      num, // 从点击输出结果与页面展示结果来看，这样的的导出的 num 不是响应式的
+      num, // 从输出结果与页面展示结果来看，这样的的导出的 num 不是响应式的
       add
     }
   },
