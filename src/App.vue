@@ -1,13 +1,16 @@
 <template> 
   <composition-Api msg="demo!"/> 
+  <reactive-Api msg="demo reactive"/> 
 </template> 
 
 <script>
 import compositionApi from './view/compositionApi'
+import reactiveApi from './view/reactiveApi'
 export default {
   name: 'App',
   components: {
-    compositionApi
+    compositionApi,
+    reactiveApi
   }
 
 }
