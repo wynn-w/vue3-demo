@@ -1,16 +1,15 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<template> 
+  <composition-Api msg="demo!"/> 
+</template> 
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import compositionApi from './view/compositionApi'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    compositionApi
   }
+
 }
 </script>
 
