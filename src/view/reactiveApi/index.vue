@@ -4,6 +4,7 @@
     <button @click="add">press</button>
     <div>
       <span>num: </span>{{state.num}}
+      
       <span>demo: </span>{{demo}}
     </div>
   </div>
@@ -29,7 +30,7 @@ export default {
     return {
       state, // 从输出结果与页面展示结果来看，这样的的导出的 num 不是响应式的
       add,
-      demo
+      demo // 已经报警告了：value cannot be made reactive: 101
     }
   },
   // setup(props, content) {
