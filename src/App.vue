@@ -2,18 +2,21 @@
   <composition-Api msg="demo!"/> 
   <reactive-Api msg="demo reactive"/> 
   <ref-Api msg="demo ref"/> 
+  <readonly-Api msg="readonlu ref"/> 
 </template> 
 
 <script>
 import compositionApi from './view/compositionApi'
 import reactiveApi from './view/reactiveApi'
 import refApi from './view/refApi'
+import readonlyApi from './view/readonlyApi'
 export default {
   name: 'App',
   components: {
     compositionApi,
     reactiveApi,
-    refApi
+    refApi,
+    readonlyApi
   }
 
 }
