@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { reactive, ref, shallowRef, triggerRef } from 'vue' 
+import { reactive, ref, shallowRef, triggerRef, customRef } from 'vue' 
 export default {
   name: 'RefApi',
   props: {
@@ -70,6 +70,36 @@ export default {
                                 // 从打包代码来看，生产环境将 newVal 赋值为 void 0 是什么个意思？
       console.log(shallowValue.value.str); // 视图与逻辑层数据都发生了变更
     }
+    
+    // =========================================== 补充：
+
+    /**
+     * customRef使用
+     * */ 
+    
+    // 对于其使用场景
+    // 1. 官网的输入框防抖：https://v3.cn.vuejs.org/api/refs-api.html#customref
+    // 2. 加强型 computed(vue3 computed 不提供 set？)：https://cdmana.com/2021/12/202112181945339560.html
+    // 3. 复杂同步方法的双向绑定：https://www.cnblogs.com/fsg6/p/14485972.html
+    //    => 文章中指出 setup 函数是仅支持同步方法的（为什么不支持异步，值得浅度探究。。）
+    const useCustomRef = (value) => {
+      // track 通知监听数据 => value 值指向的数据
+      // trigger 通知视图层同步更新的数据
+      // customRef 要求回调函数必须要返回一个对象，且对象必须实现 get/set 方法
+      return customRef((track, trigger)=>{
+        // 就单从 get/set 看，与普通 es6 的方法其实没啥区别。核心还是在 track/trigger 方法上
+        return {
+          get(){
+            track();
+            return value;
+          },
+          set(newVal){
+            value = newVal;
+            trigger();
+          }
+        }
+      })
+    }
     return {
       num,
       baseNum,
@@ -77,7 +107,8 @@ export default {
       add,
       updateShallowValue,
       triggerRefForShallowValue,
-      shallowValue
+      shallowValue,
+      useCustomRef
     }
   }
   // setup(props, content) {
