@@ -6,11 +6,15 @@
         <p>concatDemoString: {{concatDemoString}}</p>
         <p>concatDemoString2: {{concatDemoString2}}</p>
     </section>
+    <section>
+        <button @click="addNum">add num</button>
+        <p>num1: {{num1}}</p>
+    </section>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue' 
+import { ref, computed, watchEffect } from 'vue' 
 export default {
   name: 'ComputedAndWatch',
   setup() {
@@ -41,11 +45,33 @@ export default {
         demo3.value = 'change'; 
         demo4.value = 'value'; 
     }
+    // => 总结起来就是跟 vue2 没啥区别
+
+    // watchEffect
+    let num1 = ref(-1 );
+    watchEffect(() => {
+        console.log('watch effect:',`num1 => ${num1.value}`); // 甚至没有发生改变，就自动执行了 => 考虑替换 filter ？
+    })
+
+    const finishWatchEffect = watchEffect((arg) => {
+        console.log(arg); // 里面是一个函数，函数中还包了一个回调: cleanup = effect.onStop 
+                          // => 据描述是清除额外的副作用 => 取消某些操作？
+        console.log('finishWatchEffect:',`num1 => ${num1.value}`); // 甚至没有发生改变，就自动执行了 => 考虑替换 filter ？
+    });
+    const addNum = () =>{
+        ++num1.value
+        if(num1.value > 1){
+            finishWatchEffect(); // 监听停止（获取 watchEffect 的回调并执行），但函数每次触发时候，逻辑层与视图层数据任然同步变动
+        }
+    }
+    
     return {
         concatDemoString,
         concatDemoString2,
-        changeConcatDemoString2
-    }
+        changeConcatDemoString2,
+        addNum,
+        num1
+    }   
   }
 }
 </script>
