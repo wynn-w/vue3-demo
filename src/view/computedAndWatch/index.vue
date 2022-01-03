@@ -56,8 +56,9 @@ export default {
     const finishWatchEffect = watchEffect((arg) => {
         console.log(arg); // 里面是一个函数，函数中还包了一个回调: cleanup = effect.onStop 
                           // => 据描述是清除额外的副作用 => 取消某些操作？
-        console.log('finishWatchEffect:',`num1 => ${num1.value}`); // 甚至没有发生改变，就自动执行了 => 考虑替换 filter ？
+        console.log('finishWatchEffect:',`num1 => ${num1.value}`); 
     });
+    // watchEffect 第二个参数 { flash :'pre'/'post'} // 提前/延后 => 执行时机，相对于 DOM 挂载
     const addNum = () =>{
         ++num1.value
         if(num1.value > 1){
