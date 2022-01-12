@@ -1,5 +1,6 @@
 <script>
 import mSlot from './mSlot.vue';
+import useJSX from './useJSX.vue';
 import { h, ref } from 'vue';
 export default {
     setup() {
@@ -21,7 +22,8 @@ export default {
                     }
                     ), 
 
-                    h('p', null, 'dadada...')
+                    h('p', null, 'dadada...'),
+                    h(useJSX, null, null),
                 ]
             );
         }
